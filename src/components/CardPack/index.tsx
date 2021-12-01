@@ -43,7 +43,7 @@ const Home = ({
     return data.isHide
     ?
     (
-      <div>
+      <article>
         <ContainerHider img={data.templateImage}>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
@@ -148,7 +148,7 @@ const Home = ({
           Tornar Visível 
           </BtnHide>
         </Modal>
-      </div>
+      </article>
     )
     :
     (

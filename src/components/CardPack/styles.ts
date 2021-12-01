@@ -3,7 +3,7 @@ interface Props {
   img?: any;
 }
 
-export const ContainerHider = styled.div<Props>`
+export const ContainerHider = styled.article<Props>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

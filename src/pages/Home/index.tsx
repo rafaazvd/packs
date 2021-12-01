@@ -11,7 +11,7 @@ const Home = () => {
       title: 'NBA Products',
       subTitle: 'Eletronicos, Clothes',
       api: 'Sports Shopping',
-      isHide: true,
+      isHide: false,
       tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
     },
     {
@@ -34,15 +34,33 @@ const Home = () => {
       isHide: false,
       tags: ['Headphone', 'Lebron James','Headphone', 'LebronJames', 'beats', 'Fones', 'testes'],
     },
-    // {
-    //   _id: 'kncjced2dfrqieeq',
-    //   templateImage: 'https://sportshub.cbsistatic.com/i/r/2020/03/13/72c3988a-1c48-45bb-a118-268c14877b46/thumbnail/1200x675/80364df95c08a36c8c0ec94869507f71/march-madness-logo.jpg',
-    //   Image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
-    //   title: 'NBA Products',
-    //   subTitle: 'Eletronicos, Clothes',
-    //   api: 'Sports Shopping',
-    //   tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
-    // },
+    {
+      _id: 'kncjced2dfrqieeq',
+      templateImage: 'https://sportshub.cbsistatic.com/i/r/2020/03/13/72c3988a-1c48-45bb-a118-268c14877b46/thumbnail/1200x675/80364df95c08a36c8c0ec94869507f71/march-madness-logo.jpg',
+      image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
+      title: 'NBA Products',
+      subTitle: 'Eletronicos, Clothes',
+      api: 'Sports Shopping',
+      tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
+    },
+    {
+      _id: 'kncjcedd2dfrqieeq',
+      templateImage: 'https://sportshub.cbsistatic.com/i/r/2020/03/13/72c3988a-1c48-45bb-a118-268c14877b46/thumbnail/1200x675/80364df95c08a36c8c0ec94869507f71/march-madness-logo.jpg',
+      image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
+      title: 'NBA Products',
+      subTitle: 'Eletronicos, Clothes',
+      api: 'Sports Shopping',
+      tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
+    },
+    {
+      _id: 'kncjceddd2dfrqieeq',
+      templateImage: 'https://sportshub.cbsistatic.com/i/r/2020/03/13/72c3988a-1c48-45bb-a118-268c14877b46/thumbnail/1200x675/80364df95c08a36c8c0ec94869507f71/march-madness-logo.jpg',
+      image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
+      title: 'NBA Products',
+      subTitle: 'Eletronicos, Clothes',
+      api: 'Sports Shopping',
+      tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
+    },
   ]);
   let controlR = 1;
   const handleEdit = (dt: any) => {
@@ -79,19 +97,19 @@ const Home = () => {
     2: 'calc(50%) calc(26%)',
     3: 'calc(35%) calc(35%) calc(35%)',
   }
-  const nm  = packs?.length <= 3 ? 1 :
-   packs?.length <= 6 ? 2 : 3;
+  // const nm  = packs?.length <= 3 ? 1 :
+  //  packs?.length <= 6 ? 2 : 3;
+  const nm  = packs?.length / 3;
+  const numberInt = parseInt(String(nm), 10);
+  console.log({
+    nm,
+    numberInt,
+  })
+  const numberFormat = nm > numberInt ? numberInt + 1: nm;
 
     return (
-      <div style={{
-      }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateRows: sizesComponents[nm],
-          gridTemplateColumns: 'auto auto auto',
-          overflowY: 'scroll',
-          padding: '40px',
-        }}>
+      <div>
+        <div className="grid-articles">
         {
           packs?.map(dt => (
             <CardPack
@@ -104,9 +122,9 @@ const Home = () => {
           ))
         }            
         </div>
-        <div style={{minHeight: '400px', maxHeight: '400px'}}>
+        {/* <div style={{minHeight: '400px', maxHeight: '400px'}}>
           <h1>oi</h1>
-        </div>
+        </div> */}
       </div>
     );
 };
