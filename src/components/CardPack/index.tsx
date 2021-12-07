@@ -26,6 +26,7 @@ interface IProps {
   handleEdit(dt: any): void;
   handleDuplicate(dt: any): void;
   handleHide(dt: any): void;
+  handleHideOff(dt: any): void;
   handleDelete(dt: any): void;
 }
 const Home = ({
@@ -34,6 +35,7 @@ const Home = ({
   handleDuplicate,
   handleEdit,
   handleHide,
+  handleHideOff,
 }: IProps) => {
   const [isOption, setIsOption] = useState(false);
 
@@ -144,7 +146,7 @@ const Home = ({
         <Modal>
           <BsFillEyeSlashFill color={'#212E63'} size={70}/>
           <span>Pack Escondido</span>
-          <BtnHide>
+          <BtnHide onClick={() => handleHideOff(data)}>
           Tornar Visível 
           </BtnHide>
         </Modal>

@@ -116,8 +116,8 @@ export const Modal = styled.div`
   background-color: #fff;
   border-radius: 16pt;
   padding: 40px;
-  margin-top: -27%;
-  margin-left: 6%;
+  margin-top: -21%;
+  margin-left: 5%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -133,4 +133,5 @@ export const BtnHide = styled.button`
   font-size: 10pt;
   font-weight: 600;
   margin-left: 3%;
+  margin-top: 12px;
 `;

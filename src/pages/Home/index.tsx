@@ -1,6 +1,22 @@
 import React, {useState} from 'react';
+import {RiHome6Line} from 'react-icons/ri';
+import {GoSearch} from 'react-icons/go';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import update from 'immutability-helper'
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+// import { Draggable } from "react-drag-reorder";
 
 import CardPack from '../../components/CardPack';
+import CardTest from '../CardTest/Card';
+import Header from '../../components/Header';
+import br_logo from '../../assets/br.png';
+import banner from '../../assets/banner.png';
+import {
+  Input,
+  Button,
+  ContainerHome,
+} from './styles';
 
 const Home = () => {
   const [packs, setPacks] = useState([
@@ -8,7 +24,7 @@ const Home = () => {
       _id: 'kncjqieeeeq',
       templateImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAy1FrANmzisZbDig7sRlxV8b5i9T-JQCCXg&usqp=CAU',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS9ERN1m83jDo2rL_lHng9Do9bCfPLWeB4xg&usqp=CAU',
-      title: 'NBA Products',
+      title: 'NBA Sport',
       subTitle: 'Eletronicos, Clothes',
       api: 'Sports Shopping',
       isHide: false,
@@ -62,6 +78,9 @@ const Home = () => {
       tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
     },
   ]);
+  const [filter, setFilter] = useState();
+
+
   let controlR = 1;
   const handleEdit = (dt: any) => {
     console.log({
@@ -84,6 +103,15 @@ const Home = () => {
     newArr[index] = newdt;
     setPacks(newArr);
   };
+  const handleHideOff = (dt: any) => {
+    // api.put(dt)
+    const newArr = [...packs];
+    const newdt = {...dt, isHide: false};
+    const index = newArr.findIndex(p => p._id === dt._id);
+    newArr[index] = newdt;
+    setPacks(newArr);
+  };
+
   const handleDelete = (dt: any) => {
     // api.delete(dt)
     const newArr = [...packs];
@@ -92,40 +120,121 @@ const Home = () => {
     setPacks(newArr);
   };
 
-  const sizesComponents = {
-    1: 'calc(26%)',
-    2: 'calc(50%) calc(26%)',
-    3: 'calc(35%) calc(35%) calc(35%)',
+  const setPage = () => {
+    //
   }
-  // const nm  = packs?.length <= 3 ? 1 :
-  //  packs?.length <= 6 ? 2 : 3;
-  const nm  = packs?.length / 3;
-  const numberInt = parseInt(String(nm), 10);
-  console.log({
-    nm,
-    numberInt,
-  })
-  const numberFormat = nm > numberInt ? numberInt + 1: nm;
+
+  const moveCard = (dragIndex: number, hoverIndex: number) => {
+    const dragCard = packs[dragIndex]
+    setPacks(
+      update(packs, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragCard],
+        ],
+      }),
+    )
+  }
 
     return (
-      <div>
-        <div className="grid-articles">
-        {
-          packs?.map(dt => (
-            <CardPack
-            key={dt._id} data={dt}
-            handleEdit={handleEdit}
-            handleDuplicate={handleDuplicate}
-            handleHide={handleHide}
-            handleDelete={handleDelete}
-            />
-          ))
-        }            
+      <ContainerHome img={banner}>
+        <Header setPage={setPage} />
+        <div style={{ width: '80%', marginRight: 'auto', marginLeft: 'auto'}}>
+          <div style={{
+            display: 'flex',
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingTop: 200
+          }}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '77%',
+            }}>
+              <span style={{color: '#fff', fontSize: 27}}>Packs Home</span>
+              <div style={{opacity: 0.7, display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 7}}>
+                <RiHome6Line color={'#ddd'} size={20} />
+                <li style={{color: '#ddd', fontSize: 15, marginLeft: 7}}>Packs Home</li>
+              </div>
+            </div>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}>
+              <Input>
+                <input
+                placeholder="Buscar Pack"
+                type="text"
+                onChange={(event: any) => setFilter(event.target.value)}
+                />
+                <GoSearch />
+              </Input>
+              <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                <img src={br_logo} style={{height: 20, marginRight: 7}} alt='offlet'/>
+                <select style={{
+                  border: 'none',
+                  backgroundColor: 'transparent',
+                  fontWeight: '600',
+                  color: '#fff'
+                }} onChange={(value: any) => {}}>
+                  <option value="br">Brazil</option>
+                </select>
+              </div>
+              <Button>
+                <span style={{color: '#fff', fontSize: 30, marginRight: 7}}>+</span>
+                <span style={{color: '#fff', fontSize: 14, fontWeight: '600'}}>Novo pack</span>
+              </Button>
+            </div>
+          </div>
+            {/* <Draggable onPosChange={getChangedPos}>
+              {
+                packs?.map(dt => {
+                  return (
+                  <CardPack
+                    key={dt._id}
+                    data={dt}
+                    handleEdit={handleEdit}
+                    handleDuplicate={handleDuplicate}
+                    handleHide={handleHide}
+                    handleDelete={handleDelete}
+                    />)
+                })
+              }
+            </Draggable> */}
+            <DndProvider backend={HTML5Backend}>
+            <div style={{
+              marginTop: 12,
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)' 
+            }} >
+            {
+                packs?.map((dt, i) => {
+                  return (
+                  <CardTest
+                    key={dt._id}
+                    index={i}
+                    id={dt._id}
+                    text={dt.title}
+                    data={dt}
+                    handleEdit={handleEdit}
+                    handleDuplicate={handleDuplicate}
+                    handleHide={handleHide}
+                    handleDelete={handleDelete}
+                    moveCard={moveCard}
+                    handleHideOff={handleHideOff}
+                    />)
+                })
+              }
+              </div>
+            </DndProvider>
+          
+                            
         </div>
-        {/* <div style={{minHeight: '400px', maxHeight: '400px'}}>
-          <h1>oi</h1>
-        </div> */}
-      </div>
+      </ContainerHome>
     );
 };
 export default Home;

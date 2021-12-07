@@ -1,10 +1,12 @@
 .grid-articles {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, calc(32%) calc(32%) calc(32%));
+  overflow-y: scroll;
   gap: 24px; }
   @media (min-width: 768px) {
     .grid-articles {
-      grid-template-columns: repeat(2, 1fr); } }
+      grid-template-columns: repeat(3, 1fr); } }
 
 .cardnews {
   transition: all .2s linear; }
