@@ -1,13 +1,20 @@
 import styled from 'styled-components';
 interface Props {
   img?: any;
+  data?: any;
 }
 
 export const ContainerHome = styled.div<Props>`
   width: 100%;
   background-image: url(${(props) => props.img});
   background-repeat: no-repeat;
-  background-size: 100% 30%;
+  background-size: 100% ${(props) => {
+    if(props.data) {
+      return '30%'
+    } else {
+      return '300px'
+    }
+  }};
   background-position: top;
   background-color: #f8f8fa;
 `;

@@ -113,7 +113,7 @@ const Home = ({
                 justifyContent: 'space-between',
               }}>
                 <Title>{data.title}</Title>
-                <Subtitle>{data.subTitle}</Subtitle>
+                <Subtitle>{data.category}</Subtitle>
               </div>
             </div>
 
@@ -221,7 +221,7 @@ const Home = ({
               justifyContent: 'space-between',
             }}>
               <Title>{data.title}</Title>
-              <Subtitle>{data.subTitle}</Subtitle>
+              <Subtitle>{data.category}</Subtitle>
             </div>
           </div>
 

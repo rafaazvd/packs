@@ -6,8 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import update from 'immutability-helper'
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // import { Draggable } from "react-drag-reorder";
-
-import CardPack from '../../components/CardPack';
+import ModalPack from '../../components/NewPackModal';
 import CardTest from '../CardTest/Card';
 import Header from '../../components/Header';
 import br_logo from '../../assets/br.png';
@@ -19,13 +18,13 @@ import {
 } from './styles';
 
 const Home = () => {
-  const [packs, setPacks] = useState([
+  const [packs, setPacks] = useState<any>([
     {
       _id: 'kncjqieeeeq',
       templateImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAy1FrANmzisZbDig7sRlxV8b5i9T-JQCCXg&usqp=CAU',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS9ERN1m83jDo2rL_lHng9Do9bCfPLWeB4xg&usqp=CAU',
       title: 'NBA Sport',
-      subTitle: 'Eletronicos, Clothes',
+      category: 'Eletronicos, Clothes',
       api: 'Sports Shopping',
       isHide: false,
       tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
@@ -35,7 +34,7 @@ const Home = () => {
       templateImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS9ERN1m83jDo2rL_lHng9Do9bCfPLWeB4xg&usqp=CAU',
       image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
       title: 'NBA Products',
-      subTitle: 'Eletronicos, Clothes',
+      category: 'Eletronicos, Clothes',
       api: 'Sports Shopping',
       isHide: false,
       tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
@@ -45,7 +44,7 @@ const Home = () => {
       templateImage: 'https://www.ocregister.com/wp-content/uploads/2021/05/imageedit_1_7474432946.jpg?w=593',
       image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
       title: 'NBA Products',
-      subTitle: 'Eletronicos, Clothes',
+      category: 'Eletronicos, Clothes',
       api: 'Sports Shopping',
       isHide: false,
       tags: ['Headphone', 'Lebron James','Headphone', 'LebronJames', 'beats', 'Fones', 'testes'],
@@ -55,7 +54,7 @@ const Home = () => {
       templateImage: 'https://sportshub.cbsistatic.com/i/r/2020/03/13/72c3988a-1c48-45bb-a118-268c14877b46/thumbnail/1200x675/80364df95c08a36c8c0ec94869507f71/march-madness-logo.jpg',
       image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
       title: 'NBA Products',
-      subTitle: 'Eletronicos, Clothes',
+      category: 'Eletronicos, Clothes',
       api: 'Sports Shopping',
       tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
     },
@@ -64,7 +63,7 @@ const Home = () => {
       templateImage: 'https://sportshub.cbsistatic.com/i/r/2020/03/13/72c3988a-1c48-45bb-a118-268c14877b46/thumbnail/1200x675/80364df95c08a36c8c0ec94869507f71/march-madness-logo.jpg',
       image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
       title: 'NBA Products',
-      subTitle: 'Eletronicos, Clothes',
+      category: 'Eletronicos, Clothes',
       api: 'Sports Shopping',
       tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
     },
@@ -73,7 +72,7 @@ const Home = () => {
       templateImage: 'https://sportshub.cbsistatic.com/i/r/2020/03/13/72c3988a-1c48-45bb-a118-268c14877b46/thumbnail/1200x675/80364df95c08a36c8c0ec94869507f71/march-madness-logo.jpg',
       image: 'https://i0.wp.com/livebasketballbr.com/wp-content/uploads/2020/08/nba-logo.jpg?fit=1280%2C1024&ssl=1',
       title: 'NBA Products',
-      subTitle: 'Eletronicos, Clothes',
+      category: 'Eletronicos, Clothes',
       api: 'Sports Shopping',
       tags: ['Headphone', 'Lebron James', 'beats', 'Fones'],
     },
@@ -137,7 +136,8 @@ const Home = () => {
   }
 
     return (
-      <ContainerHome img={banner}>
+      <ContainerHome img={banner} data={packs}>
+        
         <Header setPage={setPage} />
         <div style={{ width: '80%', marginRight: 'auto', marginLeft: 'auto'}}>
           <div style={{
@@ -190,50 +190,34 @@ const Home = () => {
               </Button>
             </div>
           </div>
-            {/* <Draggable onPosChange={getChangedPos}>
-              {
-                packs?.map(dt => {
-                  return (
-                  <CardPack
-                    key={dt._id}
-                    data={dt}
-                    handleEdit={handleEdit}
-                    handleDuplicate={handleDuplicate}
-                    handleHide={handleHide}
-                    handleDelete={handleDelete}
-                    />)
-                })
-              }
-            </Draggable> */}
-            <DndProvider backend={HTML5Backend}>
-            <div style={{
-              marginTop: 12,
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)' 
-            }} >
-            {
-                packs?.map((dt, i) => {
-                  return (
-                  <CardTest
-                    key={dt._id}
-                    index={i}
-                    id={dt._id}
-                    text={dt.title}
-                    data={dt}
-                    handleEdit={handleEdit}
-                    handleDuplicate={handleDuplicate}
-                    handleHide={handleHide}
-                    handleDelete={handleDelete}
-                    moveCard={moveCard}
-                    handleHideOff={handleHideOff}
-                    />)
-                })
-              }
+          <DndProvider backend={HTML5Backend}>
+              <div style={{
+                  marginTop: 12,
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)' 
+                }} >
+                {
+                  packs?.map((dt: any, i: number) => {
+                    return (
+                    <CardTest
+                      key={dt._id}
+                      index={i}
+                      id={dt._id}
+                      text={dt.title}
+                      data={dt}
+                      handleEdit={handleEdit}
+                      handleDuplicate={handleDuplicate}
+                      handleHide={handleHide}
+                      handleDelete={handleDelete}
+                      moveCard={moveCard}
+                      handleHideOff={handleHideOff}
+                      />)
+                  })
+                }
               </div>
-            </DndProvider>
-          
-                            
+          </DndProvider>
         </div>
+        <ModalPack />
       </ContainerHome>
     );
 };
