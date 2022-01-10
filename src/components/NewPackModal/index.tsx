@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Dropzone from 'react-dropzone';
 import { FaTrash } from 'react-icons/fa';
 
 import { 
   Container,
   DropContainer,
+  DropContainer2,
   Label,
   InputComponent,
   CancelButton,
@@ -13,6 +14,8 @@ import {
   TagsComponent,
   TrashComponent,
   UploadMessage,
+  ButtonDelTag,
+  Tag,
 } from './styles';
 interface IPack {
   templateImage: string;
@@ -22,11 +25,15 @@ interface IPack {
   api: string;
   tags: string[],
 };
-const NewPack = () => {
+interface IProps {
+  setIsCreate(b: boolean): void;
+}
+const NewPack = ({setIsCreate}: IProps) => {
   const [title, setTitle] = useState<string>();
   const [category, setCategory] = useState<string>();
   const [api, setApi] = useState<string>();
-  const [tags, setTags] = useState<string[]>();
+  const [tags, setTags] = useState<string[]>(['tags test 1', 'test 2', 'tag 3', 'tag 3', 'tag 3', 'tag 3']);
+  const [tagClean, setTagClean] = useState<string>();
   const [image, setImage] = useState<string>();
   const [imagePreview, setImagePreview] = useState<any>();
   const [templateImage, setTemplateImage] = useState<any>();
@@ -55,6 +62,32 @@ const NewPack = () => {
     }
     return <UploadMessage type="success">Solte aqui ... </UploadMessage>;
   };
+
+  const addTagsFromState = (tagStr: string) => {
+    console.log({
+      tags,
+    })
+    const newArr = [...tags];
+    newArr.push(tagStr);
+    console.log({
+      newArr,
+    })
+    setTags(newArr);
+    setTagClean('');
+  }
+
+  useEffect(() => {
+    const inputElement = document.getElementById('enter');
+    inputElement?.addEventListener('keyup', function(e: any){
+      var key = e.which || e.keyCode;
+      if (key === 13) {      
+        console.log('carregou enter o valor digitado foi: ', e?.target.value);
+        if(e?.target.value) {
+          addTagsFromState(e?.target.value);
+        }
+      }
+    });
+  }, [])
 
   return (
     <Container>
@@ -99,9 +132,20 @@ const NewPack = () => {
           <div>
             <Label>Tags<span style={{color: '#c45'}}>*</span></Label>
             <TagsComponent>
-              <textarea
+              {
+                tags?.map(t => (
+                  <Tag>
+                    <small>{t}</small>
+                    <ButtonDelTag>X</ButtonDelTag>
+                  </Tag>
+                ))
+              }
+              <input
+              id="enter"
               style={{width: '100%', border: 'none', backgroundColor: 'transparent'}}
-              onChange={txt => setTitle(txt.target.value)}
+              placeholder=''
+              onChange={txt => setTagClean(txt.target.value)}
+              value={tagClean}
               />
             </TagsComponent>
           </div>
@@ -114,7 +158,7 @@ const NewPack = () => {
           width: '50%'
         }}>
           <div >
-          <Label>Logo<span>*</span></Label>
+          <Label>Logo<span style={{color: '#c45'}}>*</span></Label>
             <Dropzone accept="image/*" onDropAccepted={handlePreviewImage}>
               {({
                 getRootProps,
@@ -134,8 +178,8 @@ const NewPack = () => {
               )}
               </Dropzone>
           </div>
-          <div>
-          <Label>Image<span>*</span></Label>
+          <div style={{marginTop: '12px'}}>
+          <Label>Image<span style={{color: '#c45'}}>*</span></Label>
             <Dropzone accept="image/*" onDropAccepted={handlePreviewTemplate}>
               {({
                 getRootProps,
@@ -143,7 +187,7 @@ const NewPack = () => {
                 isDragActive,
                 isDragReject,
               }) => (
-                <DropContainer
+                <DropContainer2
                   {...getRootProps()}
                   isDragActive={isDragActive} // aceitar img
                   isDragReject={isDragReject}
@@ -151,15 +195,22 @@ const NewPack = () => {
                 >
                   <input {...getInputProps()} />
                   {renderDragMessage(isDragActive, isDragReject)}
-                </DropContainer>
+                </DropContainer2>
               )}
               </Dropzone>
           </div>
         </div>
       </div>
 
-      <div>
-        <CancelButton>
+      <div style={{
+        display: 'flex',
+        width: '90%',
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}>
+        <CancelButton onClick={() => setIsCreate(false)}>
           Cancelar
         </CancelButton>
         <Button>

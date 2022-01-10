@@ -78,6 +78,7 @@ const Home = () => {
     },
   ]);
   const [filter, setFilter] = useState();
+  const [isCreate, setIsCreate] = useState(false);
 
 
   let controlR = 1;
@@ -184,7 +185,7 @@ const Home = () => {
                   <option value="br">Brazil</option>
                 </select>
               </div>
-              <Button>
+              <Button onClick={() => setIsCreate(true)}>
                 <span style={{color: '#fff', fontSize: 30, marginRight: 7}}>+</span>
                 <span style={{color: '#fff', fontSize: 14, fontWeight: '600'}}>Novo pack</span>
               </Button>
@@ -194,7 +195,9 @@ const Home = () => {
               <div style={{
                   marginTop: 12,
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(3, 1fr)' 
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gridColumnGap: '1px',
+                  gridRowGap: '1px',
                 }} >
                 {
                   packs?.map((dt: any, i: number) => {
@@ -217,7 +220,9 @@ const Home = () => {
               </div>
           </DndProvider>
         </div>
-        <ModalPack />
+        {
+          isCreate && <ModalPack setIsCreate={setIsCreate} />
+        }
       </ContainerHome>
     );
 };
