@@ -49,46 +49,12 @@ const Home = ({
         <ContainerHider img={data.templateImage}>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
-              <ButtonUp onClick={() => viewOptions()}>
+              <ButtonUp onClick={() => {}}>
                 {/* <BsUiChecksGrid /> */}
                 <img style={{
                 }} src={icoBtn} alt="" />
               </ButtonUp>
             </div>
-            {
-              isOption && (
-                <OptionDiv>
-                  <button onClick={() => {
-                    setIsOption(!isOption);
-                    handleEdit(data)
-                  }} style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', margin: '4%', border: 'none', backgroundColor: 'transparent'}}>
-                    <FaEdit color={'#212E63'} />
-                    <TextOpt>Editar</TextOpt>
-                  </button>
-                  <button onClick={() => {
-                    setIsOption(!isOption);
-                    handleDuplicate(data)
-                  }} style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', margin: '4%', border: 'none', backgroundColor: 'transparent'}}>
-                    <HiDuplicate color={'#212E63'} />
-                    <TextOpt>Duplicar</TextOpt>
-                  </button>
-                  <button onClick={() => {
-                    setIsOption(!isOption);
-                    handleHide(data)
-                  }} style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', margin: '4%', border: 'none', backgroundColor: 'transparent'}}>
-                    <BsFillEyeSlashFill color={'#212E63'} />
-                    <TextOpt>Esconder</TextOpt>
-                  </button>
-                  <button onClick={() => {
-                    setIsOption(!isOption);
-                    handleDelete(data)
-                  }} style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', margin: '4%', border: 'none', backgroundColor: 'transparent'}}>
-                    <FaTrash color={'#c45'} />
-                    <TextOptrash>Excluir</TextOptrash>
-                  </button>
-                </OptionDiv>
-              )
-            }
           </div>
 
           <div style={{
@@ -140,7 +106,6 @@ const Home = ({
                 ))
               }
             </div>
-            
           </div>
         </ContainerHider>
         <Modal>

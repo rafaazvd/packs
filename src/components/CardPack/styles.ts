@@ -111,7 +111,7 @@ export const TextOptrash = styled.span`
 `;
 
 export const Modal = styled.div`
-  position: fixed;
+  /* position: relative;
   border: solid 1px rgb(181 181 195);
   background-color: #fff;
   border-radius: 16pt;
@@ -119,6 +119,19 @@ export const Modal = styled.div`
   margin-top: -21%;
   margin-left: 5%;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; */
+  position: relative;
+  border: solid 1px rgb(181 181 195);
+  background-color: #fff;
+  border-radius: 16pt;
+  padding: 40px;
+  display: flex;
+  margin-top: -350px;
+  width: 250px;
+  margin-left: 58px;
+  margin-right: 1px;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;

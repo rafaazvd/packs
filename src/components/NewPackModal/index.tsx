@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import Dropzone from 'react-dropzone';
 import { FaTrash } from 'react-icons/fa';
 
@@ -17,14 +17,6 @@ import {
   ButtonDelTag,
   Tag,
 } from './styles';
-interface IPack {
-  templateImage: string;
-  image: string;
-  title: string;
-  category: string;
-  api: string;
-  tags: string[],
-};
 interface IProps {
   setIsCreate(b: boolean): void;
 }
@@ -112,7 +104,7 @@ const NewPack = ({setIsCreate}: IProps) => {
             </InputComponent>
           </div>
           <div>
-            <Label>Categoria<span style={{color: '#c45'}}>*</span></Label>
+            <Label>Categoria</Label>
             <SelectComponent>
               <option value="cat1">cat1</option>
               <option value="cat2">cat2</option>
@@ -120,7 +112,7 @@ const NewPack = ({setIsCreate}: IProps) => {
             </SelectComponent>
           </div>
           <div>
-            <Label>API<span style={{color: '#c45'}}>*</span></Label>
+            <Label>API</Label>
             <InputComponent>
               <input
               style={{width: '100%', border: 'none', backgroundColor: 'transparent'}}
